@@ -19,11 +19,14 @@ class CrudRepository{
     
     async destroy(data){
         try {
-            const response=await this.model.destroy(data,{
-                where:{
-                    id:data
+            const response = await this.model.destroy({
+                where: {
+                    id: data 
                 }
-            })
+            });
+            if(!response){
+                throw new AppError("the requested resource to delete is not available",StatusCodes.NOT_FOUND)
+            }
             return response
         } catch (error) {
             Logger.error('Something went wrong in crud:destroy ')
