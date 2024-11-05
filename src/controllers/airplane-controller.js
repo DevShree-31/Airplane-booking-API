@@ -14,7 +14,16 @@ async function createAirplane(req,res){
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse)
     }
 }
-
+async function getAirplanes(req,res){
+    try {
+        const airplanes=await AirplaneService.getAirplanes();
+        successResponse.data=airplanes
+        return res.status(StatusCodes.OK).json(successResponse)
+    } catch (err) {
+        errorResponse.error=err
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse)
+    }
+}
 module.exports={
-    createAirplane
+    createAirplane,getAirplanes
 }

@@ -13,10 +13,18 @@ async function createAirplane(data){
             error.errors.forEach((err)=>{
                 explanation.push(err)
             })
-            throw AppError(explanation,StatusCodes.BAD_REQUEST)
+            throw new AppError(explanation,StatusCodes.BAD_REQUEST)
         }
         throw AppError('Cannot create a new airplane object',StatusCodes.INTERNAL_SERVER_ERROR)
     }
 }
+async function getAirplanes(){
+    try {
+        const airplanes=await airplaneRepository.getAll()
+        return airplanes;
+    } catch (error) {
+        throw new AppError('Cannot fetch data of all airplanes',StatusCodes.INTERNAL_SERVER_ERROR)
+    }
+}
 
-module.exports={createAirplane}
+module.exports={createAirplane,getAirplanes}

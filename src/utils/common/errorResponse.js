@@ -1,7 +1,7 @@
 const errorResponse={
-    sucess:true,
-    message:"Successfully Created an aeroplane",
-    error:{}
+    sucess:false,
+    message:"Internal Error occurred",
+    error:{},
 }
 
 module.exports={errorResponse}

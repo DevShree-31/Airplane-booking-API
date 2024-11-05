@@ -1,6 +1,6 @@
 const successResponse={
     sucess:true,
-    message:"Successfully Created an aeroplane",
+    message:"Successfully compeleted the request",
     data:null
 }
 module.exports={
