@@ -1,6 +1,6 @@
 const errorResponse={
     sucess:false,
-    message:"Internal Error occurred",
+    message:"Something went wrong",
     error:{},
 }
 

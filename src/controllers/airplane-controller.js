@@ -19,11 +19,22 @@ async function getAirplanes(req,res){
         const airplanes=await AirplaneService.getAirplanes();
         successResponse.data=airplanes
         return res.status(StatusCodes.OK).json(successResponse)
-    } catch (err) {
-        errorResponse.error=err
+    } catch (error) {
+        errorResponse.error=error
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse)
     }
 }
+
+async function getAirplane(req,res){
+    try {
+        const airplane=await AirplaneService.getAirplane(req.params.id);
+        successResponse.data=airplane
+        return res.status(StatusCodes.OK).json(successResponse)
+    } catch (error) {
+        errorResponse.error=error
+        return res.status(error.statusCode).json(errorResponse)
+    }
+}
 module.exports={
-    createAirplane,getAirplanes
+    createAirplane,getAirplanes,getAirplane
 }
