@@ -1,6 +1,7 @@
 const { StatusCodes } = require('http-status-codes')
 const {AirplaneRepository}=require('../repositories')
 const AppError = require('../utils/errors/app-error')
+const airplane = require('../models/airplane')
 const airplaneRepository=new AirplaneRepository()//create new instance of this
 
 async function createAirplane(data){
@@ -49,5 +50,16 @@ async function destroyAirplane(id){
         throw new AppError('Something went wrong cannot destroy airplane',StatusCodes.INTERNAL_SERVER_ERROR)
     }
 }
-module.exports={createAirplane,getAirplanes,getAirplane,destroyAirplane
+async function updateAirplane(id,data){
+    try {
+        const airplane=await airplaneRepository.update(id,data)
+        return airplane
+    } catch (error) {
+        if(error.statusCode==StatusCodes.NOT_FOUND){
+            throw new AppError('The Airplane you requested is not  available to be updated',error.statusCode)
+        }
+        throw new AppError('Something went wrong cannot update given id',StatusCodes.INTERNAL_SERVER_ERROR)
+    }
+}
+module.exports={createAirplane,getAirplanes,getAirplane,destroyAirplane,updateAirplane
 }

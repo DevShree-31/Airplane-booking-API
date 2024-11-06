@@ -64,6 +64,9 @@ class CrudRepository{
                     id:id
                 }
             })
+            if(!response[0]){
+                throw new AppError('The requested resource is not available',StatusCodes.NOT_FOUND)
+            }
             return response
         } catch (error) {
             Logger.error('Something went wrong in crud:update')
