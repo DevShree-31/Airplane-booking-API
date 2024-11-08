@@ -19,7 +19,7 @@ async function createCity(data){
         throw new AppError('Cannot create a new city object',StatusCodes.INTERNAL_SERVER_ERROR)
     }
 }
-async function getCity(){
+async function getCities(){
     try {
         const response=await cityRepository.getAll()
         return response
@@ -27,4 +27,4 @@ async function getCity(){
         throw new AppError('Cannot fetch data of all cities',StatusCodes.INTERNAL_SERVER_ERROR)
     }
 }
-module.exports={createCity,getCity}
+module.exports={createCity,getCities}
