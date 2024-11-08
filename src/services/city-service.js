@@ -38,4 +38,15 @@ async function getCity(data){
         throw new AppError('Cannot fetch data of given city',StatusCodes.INTERNAL_SERVER_ERROR)
     }
 }
-module.exports={createCity,getCities,getCity}
+async function updateCity(id,data){
+    try {
+        const city=await cityRepository.update(id,data)
+        return city
+    } catch (error) {
+        if(error.statusCode==StatusCodes.NOT_FOUND){
+            throw new AppError('The city you requested is not  available to be updated',error.statusCode)
+        }
+        throw new AppError('Something went wrong cannot update given id',StatusCodes.INTERNAL_SERVER_ERROR)
+    }
+}
+module.exports={createCity,getCities,getCity,updateCity}
