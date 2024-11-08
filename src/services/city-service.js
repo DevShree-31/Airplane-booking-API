@@ -38,6 +38,17 @@ async function getCity(data){
         throw new AppError('Cannot fetch data of given city',StatusCodes.INTERNAL_SERVER_ERROR)
     }
 }
+async function destroyCity(id){
+    try {
+        const city=await cityRepository.destroy(id)
+        return city;
+    } catch (error) {
+        if(error.statusCode==StatusCodes.NOT_FOUND){
+            throw new AppError('The Airplane you requested to delete is not found',error.statusCode)
+        }
+        throw new AppError('Something went wrong cannot destroy airplane',StatusCodes.INTERNAL_SERVER_ERROR)
+    }
+}
 async function updateCity(id,data){
     try {
         const city=await cityRepository.update(id,data)
@@ -49,4 +60,4 @@ async function updateCity(id,data){
         throw new AppError('Something went wrong cannot update given id',StatusCodes.INTERNAL_SERVER_ERROR)
     }
 }
-module.exports={createCity,getCities,getCity,updateCity}
+module.exports={createCity,getCities,getCity,updateCity,destroyCity}
