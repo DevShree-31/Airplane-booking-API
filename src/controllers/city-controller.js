@@ -25,4 +25,14 @@ async function getCities(req,res){
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse)
     }
 }
-module.exports={createCity,getCities}
+async function getCity(req,res){
+    try {
+        const city=await CityService.getCity(req.params.id);
+        successResponse.data=city
+        return res.status(StatusCodes.OK).json(successResponse)
+    } catch (error) {
+        errorResponse.error=error
+        return res.status(error.statusCode).json(errorResponse)
+    }
+}
+module.exports={createCity,getCities,getCity}
