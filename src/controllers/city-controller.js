@@ -4,10 +4,10 @@ const { successResponse, errorResponse } = require('../utils/common')
 
 async function createCity(req,res){
     try {
-        const airplane=await CityService.createCity({
+        const city=await CityService.createCity({
         name:req.body.name
         })
-        successResponse.data=airplane
+        successResponse.data=city
         return res.status(StatusCodes.CREATED).json(successResponse)
     } catch (error) {
         errorResponse.error=error
@@ -15,4 +15,14 @@ async function createCity(req,res){
     }
 }
 
-module.exports={createCity}
+async function getCity(req,res){
+    try {
+        const cities=await CityService.getCity();
+        successResponse.data=cities
+        return res.status(StatusCodes.OK).json(successResponse)
+    } catch (error) {
+        errorResponse.error=error
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse)
+    }
+}
+module.exports={createCity,getCity}

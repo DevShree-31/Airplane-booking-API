@@ -9,15 +9,22 @@ async function createCity(data){
         const response=await cityRepository.create(data)
         return response
     } catch (error) {
-        if(error.name==="SequalizeValidationError"){
+        if(error.name=='SequelizeValidationError'||error.name=='SequelizeUniqueConstraintError'){
             let explanation=[];
             error.errors.forEach((err)=>{
-                explanation.push(err)
+                explanation.push(err.message)
             })
             throw new AppError(explanation,StatusCodes.BAD_REQUEST)
         }
-        throw new AppError('Cannot create a new airplane object',StatusCodes.INTERNAL_SERVER_ERROR)
+        throw new AppError('Cannot create a new city object',StatusCodes.INTERNAL_SERVER_ERROR)
     }
 }
-
-module.exports={createCity}
+async function getCity(){
+    try {
+        const response=await cityRepository.getAll()
+        return response
+    } catch (error) {
+        throw new AppError('Cannot fetch data of all cities',StatusCodes.INTERNAL_SERVER_ERROR)
+    }
+}
+module.exports={createCity,getCity}
