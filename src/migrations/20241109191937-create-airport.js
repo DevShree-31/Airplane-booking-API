@@ -10,21 +10,21 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type:DataTypes.STRING,
+        type:Sequelize.STRING,
       allowNull: false,
       unique: true
       },
       code: {
-        type:DataTypes.STRING,
+        type:Sequelize.STRING,
       allowNull:false,
       unique:true
       },
       address: {
-        type:DataTypes.STRING,
+        type:Sequelize.STRING,
       unique:true
       },
       cityID: {
-        type:DataTypes.INTEGER,
+        type:Sequelize.INTEGER,
         allowNull:false,
         unique:true
       },
