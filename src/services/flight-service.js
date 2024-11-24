@@ -5,8 +5,8 @@ const flightRepository=new FlightRepository()//create new instance of this
 
 async function createFlight(data){
     try {
-        const response=await flightRepository.create(data)
-        return response
+        const flight=await flightRepository.create(data)
+        return flight
     } catch (error) {
         if(error.name==="SequalizeValidationError"){
             let explanation=[];
@@ -15,9 +15,21 @@ async function createFlight(data){
             })
             throw new AppError(explanation,StatusCodes.BAD_REQUEST)
         }
-        throw new AppError('Cannot create a new airplane object',StatusCodes.INTERNAL_SERVER_ERROR)
+        throw new AppError('Cannot create a new flight object',StatusCodes.INTERNAL_SERVER_ERROR)
     }
 }
-
-module.exports={createFlight
+async function getAllFlights(query) {
+    let customFilter={}
+    if(query.trip){
+        [departureID,arrivalID]=query.trip.split("-")
+        customFilter.departureCityId=departureID
+        customFilter.arrivalCityId=arrivalID
+    }
+    try {
+        const flights=await flightRepository.getAllFlights(customFilter)
+        return flights
+    } catch (error) {
+        throw new AppError('Cannot find data of flights',StatusCodes.INTERNAL_SERVER_ERROR)
+    }
 }
+module.exports={createFlight,getAllFlights}
