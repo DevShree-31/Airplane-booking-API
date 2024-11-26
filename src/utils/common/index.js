@@ -3,5 +3,6 @@ const { successResponse } = require("./SuccessResponse");
 
 module.exports={
     successResponse,
-    errorResponse
+    errorResponse,
+    ENUM:require('./enums')
 }
